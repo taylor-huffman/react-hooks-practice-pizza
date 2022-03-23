@@ -1,6 +1,6 @@
 import React from "react";
 
-function PizzaForm({ formData, setFormData }) {
+function PizzaForm({ formData, setFormData, updatePizza }) {
 
   function handleOnChange(e) {
     setFormData({...formData, [e.target.name]: e.target.value})
@@ -8,12 +8,7 @@ function PizzaForm({ formData, setFormData }) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log(formData)
-    setFormData({
-      topping: '',
-      size: 'Small',
-      vegetarian: '',
-    })
+    updatePizza(formData)
   }
 
   function handleAlert(e) {
@@ -22,7 +17,7 @@ function PizzaForm({ formData, setFormData }) {
   }
 
   return (
-    <form onSubmit={formData.topping && formData.size && formData.vegetarian ? handleSubmit : handleAlert /*handle that submit*/}>
+    <form onSubmit={formData.topping && formData.size && formData.vegetarian ? handleSubmit : handleAlert}>
       <div className="form-row">
         <div className="col-5">
           <input
@@ -30,12 +25,12 @@ function PizzaForm({ formData, setFormData }) {
             type="text"
             name="topping"
             placeholder="Pizza Topping"
-            onChange={handleOnChange}
             value={formData.topping}
+            onChange={handleOnChange}
           />
         </div>
         <div className="col">
-          <select value={formData.size} onChange={handleOnChange} className="form-control" name="size">
+          <select onChange={handleOnChange} value={formData.size} className="form-control" name="size">
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -49,7 +44,7 @@ function PizzaForm({ formData, setFormData }) {
               name="vegetarian"
               value="Vegetarian"
               onChange={handleOnChange}
-              checked={formData.vegetarian === true ? true : false}
+              checked={formData.vegetarian === 'Vegetarian' ? true : false}
             />
             <label className="form-check-label">Vegetarian</label>
           </div>
@@ -60,7 +55,7 @@ function PizzaForm({ formData, setFormData }) {
               name="vegetarian"
               value="Not Vegetarian"
               onChange={handleOnChange}
-              checked={formData.vegetarian === false ? true : false}
+              checked={formData.vegetarian === 'Not Vegetarian' ? true : false}
             />
             <label className="form-check-label">Not Vegetarian</label>
           </div>
