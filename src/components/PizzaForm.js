@@ -1,8 +1,28 @@
 import React from "react";
 
-function PizzaForm() {
+function PizzaForm({ formData, setFormData }) {
+
+  function handleOnChange(e) {
+    setFormData({...formData, [e.target.name]: e.target.value})
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log(formData)
+    setFormData({
+      topping: '',
+      size: 'Small',
+      vegetarian: '',
+    })
+  }
+
+  function handleAlert(e) {
+    e.preventDefault()
+    alert('Oops! You forgot a field!')
+  }
+
   return (
-    <form onSubmit={null /*handle that submit*/}>
+    <form onSubmit={formData.topping && formData.size && formData.vegetarian ? handleSubmit : handleAlert /*handle that submit*/}>
       <div className="form-row">
         <div className="col-5">
           <input
@@ -10,10 +30,12 @@ function PizzaForm() {
             type="text"
             name="topping"
             placeholder="Pizza Topping"
+            onChange={handleOnChange}
+            value={formData.topping}
           />
         </div>
         <div className="col">
-          <select className="form-control" name="size">
+          <select value={formData.size} onChange={handleOnChange} className="form-control" name="size">
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -26,6 +48,8 @@ function PizzaForm() {
               type="radio"
               name="vegetarian"
               value="Vegetarian"
+              onChange={handleOnChange}
+              checked={formData.vegetarian ? true : false}
             />
             <label className="form-check-label">Vegetarian</label>
           </div>
@@ -35,6 +59,8 @@ function PizzaForm() {
               type="radio"
               name="vegetarian"
               value="Not Vegetarian"
+              onChange={handleOnChange}
+              checked={formData.vegetarian ? false : true}
             />
             <label className="form-check-label">Not Vegetarian</label>
           </div>
