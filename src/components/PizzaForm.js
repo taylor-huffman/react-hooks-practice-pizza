@@ -49,7 +49,7 @@ function PizzaForm({ formData, setFormData }) {
               name="vegetarian"
               value="Vegetarian"
               onChange={handleOnChange}
-              checked={formData.vegetarian ? true : false}
+              checked={formData.vegetarian === true ? true : false}
             />
             <label className="form-check-label">Vegetarian</label>
           </div>
@@ -60,7 +60,7 @@ function PizzaForm({ formData, setFormData }) {
               name="vegetarian"
               value="Not Vegetarian"
               onChange={handleOnChange}
-              checked={formData.vegetarian ? false : true}
+              checked={formData.vegetarian === false ? true : false}
             />
             <label className="form-check-label">Not Vegetarian</label>
           </div>
